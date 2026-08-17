@@ -15,4 +15,4 @@ console.log(y);
   console.log(z);
 }
 
-// console.log(z);  <-- Essa linha, se descomentada, gera erro pois z é local ao bloco acima
+// console.log(z);  <-- Essa linha, se descomentada, gera erro pois z é local ao bloco 
