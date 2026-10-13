@@ -1,0 +1,26 @@
+
+## Questões teóricas
+
+**1. Qual a vantagem de consultar a API antes de alterar a classe?**
+Saber exatamente quais campos existem, seus nomes e formatos (e quais podem vir vazios), evitando atributos errados ou que nunca serão preenchidos.
+
+**2. Por que os novos dados devem ser privados?**
+Para manter o encapsulamento: só a classe altera os dados (via `setCep()`), impedindo que código externo coloque valores inconsistentes com o CEP consultado.
+
+**3. Qual a finalidade dos getters adicionados?**
+Permitir a **leitura** controlada dos atributos privados, sem permitir alteração direta.
+
+**4. Por que não acessar os atributos retornados pela API fora de `setCep()`?**
+Porque o formato do JSON é um detalhe da API. Se ele mudar, só `setCep()` precisa ser ajustado; o resto do sistema usa os getters e não percebe a mudança.
+
+**5. Qual a diferença entre o nome de uma propriedade da API e o nome de um atributo da classe?**
+A propriedade pertence ao JSON de resposta (ex.: `localidade`); o atributo é a variável privada da classe (ex.: `#cidade`). Um dado externo é traduzido para o nome que faz sentido no nosso sistema.
+
+**6. Por que a classe não precisa usar os mesmos nomes do ViaCEP?**
+Para ser independente da API e usar nomes mais claros para o nosso domínio (`localidade` → `cidade`). Se trocarmos de API, os nomes da classe continuam iguais.
+
+**7. O que aconteceria se a API adicionasse novos campos no futuro?**
+Nada quebraria: a classe só lê os campos que usa e ignora os demais. Para aproveitar um campo novo, bastaria criar o atributo, a atribuição em `setCep()` e o getter.
+
+**8. Por que o `try/catch` deve continuar funcionando após a inclusão dos atributos?**
+Porque erros de rede, CEP inválido ou inexistente continuam podendo acontecer. Sem o tratamento, a exceção interromperia o programa e o código poderia tentar exibir atributos ainda não preenchidos.
